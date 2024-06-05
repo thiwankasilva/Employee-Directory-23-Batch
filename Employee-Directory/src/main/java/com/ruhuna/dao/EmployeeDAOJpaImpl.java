@@ -37,4 +37,25 @@ public class EmployeeDAOJpaImpl implements EmployeeDAO{
 
         return employee;
     }
+
+    //By using interfaces we are achieving abstraction
+    @Override
+    public void save(Employee employee) {
+
+        //If we used JDBC - Java database connectivity
+        //Insert Into table_name values("","")
+
+        //JPA Way
+        //By merging the entity it will merge if theres any previous record or it will create a new record if there isn't any
+        Employee employeeSaved = entityManager.merge(employee);
+
+    }
+
+    @Override
+    public void deleteById(String id) {
+        //Find whether there's a employee with that id
+        Employee employee = entityManager.find(Employee.class,id);
+
+        entityManager.remove(employee);
+    }
 }
